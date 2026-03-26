@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  # Название сервиса (базы данных)
+  db:
+    image: postgres:15-alpine
+    container_name: trading_db
+    restart: always
+    # Эти данные ДОЛЖНЫ совпадать с тем, что ты пишешь в .env
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: trading_bot
+    # Пробрасываем порт из контейнера на твой компьютер
+    ports:
+      - '5433:5432'
+    # Сохраняем данные на диске, чтобы они не удалились при выключении докера
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+# Объявляем хранилище данных
+volumes:
+  pgdata:
